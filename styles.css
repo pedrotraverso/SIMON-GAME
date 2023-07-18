@@ -1,0 +1,118 @@
+body {
+    background-color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#board-container {
+    position: relative;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background-color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 100px;
+    box-shadow: 0 0 500px #454545;
+    border: 1px solid #202020;
+}
+
+#board {
+    position: relative;
+    width: 410px;
+    height: 410px;
+    border-radius: 50%;
+    background-color: #000000;
+    /* opacity: 0.85; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #202020;
+}
+
+#center-circle {
+    display: flex;
+    flex-direction: column;
+    width: 155px;
+    height: 155px;
+    border: 1px solid #202020;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    background: #000000 linear-gradient(#202020 0%, #000000 100%);
+}
+
+#logo {
+    height: 23px;
+}
+
+#start-button {
+    display: flex;
+    width: 50px;
+    height: 25px;
+    font-size: 12px;
+    background-color: #000000;
+    border-radius: 50px;
+    cursor: pointer;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #2f2f2f;
+}
+
+#start-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 66px;
+}
+
+#power-icon {
+    width: 15px;
+}
+
+#semicirculo {
+    width: 100px;
+    height: 50px;
+    margin: 11px 0 5px 0;
+    background: radial-gradient(#333333 0.5px, transparent 0);
+    background-size: 5px 5px;
+    border-radius: 100% 100% 100% 100%;
+}
+
+.button {
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    cursor: pointer;
+    border: none;
+    clip-path: path("m102.75,168.34h0c7.8-32.4,33.34-57.9,65.77-65.63h0c4.22-1.01,7.29-4.73,7.55-9.12l4.85-83.01c.36-6.16-4.9-11.14-11.04-10.53C80.28,9.05,9.05,80.28.05,169.88c-.62,6.14,4.36,11.4,10.53,11.04l83.01-4.85c4.45-.26,8.22-3.41,9.16-7.72h0Z");
+}
+
+#green-button {
+    transform: rotate(0deg);
+    background: radial-gradient(circle, green 35%, #000000 100%);
+}
+
+#red-button {
+    transform: rotate(90deg);
+    background: radial-gradient(circle, red 35%, #000000 100%);
+}
+
+#blue-button {
+    transform: rotate(180deg);
+    background: radial-gradient(circle, blue 35%, #000000 100%);
+}
+
+#yellow-button {
+    transform: rotate(270deg);
+    background: radial-gradient(circle, yellow 35%, #000000 100%);
+}
+
+#score {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 20px;
+}

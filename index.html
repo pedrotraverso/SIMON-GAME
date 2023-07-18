@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simon Game</title>
+    <link rel="stylesheet" href="./normalize.css">
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+
+</head>
+<body>
+    <div id="board-container">
+        <div id="board">
+            <div id="center-circle">
+                <div id="start-button-container">
+                    <button id="start-button" onclick="startGame()">
+                        <img id="power-icon" src="./img/power-button.svg" alt="power-icon"/>
+                    </button>
+                </div>
+                <img id="logo" src="./img/simon-logo.svg" alt="logo"/>
+                <div id="semicirculo"></div>
+            </div>
+            <button class="button" id="green-button"></button>
+            <button class="button" id="red-button"></button>
+            <button class="button" id="blue-button"></button>
+            <button class="button" id="yellow-button"></button>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>
