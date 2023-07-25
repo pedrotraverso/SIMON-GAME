@@ -5,26 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simon Game</title>
     <link rel="stylesheet" href="./normalize.css">
+    <link rel="stylesheet" href="./fonts.css">
     <link rel="stylesheet" type="text/css" href="./styles.css">
-
+    <link rel="stylesheet" href="./breakpoints.css">
 </head>
 <body>
+    <div id="bar">
+        <span id="level">Level: 1</span>
+        <span id="score">
+            Score: <span id="points">0</span>
+        </span>
+        <span id="timer">
+            Time: <span id="minutes">00</span>:<span id="seconds">00</span>
+        </span>
+    </div>
     <div id="board-container">
         <div id="board">
             <div id="center-circle">
-                <div id="start-button-container">
+                <div id="button-container">
                     <button id="start-button" onclick="startGame()">
-                        <img id="power-icon" src="./img/power-button.svg" alt="power-icon"/>
+                        <img id="power-icon" src="./img/play-icon.svg" alt="power-icon"/>
+                        <img id="play-icon" src="./img/play-icon.svg" alt="play-icon" style="display: none"/>
+                        <img id="reset-icon" src="./img/reset-icon.svg" alt="reset-icon" style="display: none"/>
                     </button>
                 </div>
                 <img id="logo" src="./img/simon-logo.svg" alt="logo"/>
                 <div id="semicirculo"></div>
             </div>
-            <button class="button" id="green-button"></button>
-            <button class="button" id="red-button"></button>
-            <button class="button" id="blue-button"></button>
-            <button class="button" id="yellow-button"></button>
+            <button class="button" id="green-button" onclick="handleButtonClick(0)"></button>
+            <button class="button" id="red-button" onclick="handleButtonClick(1)"></button>
+            <button class="button" id="blue-button" onclick="handleButtonClick(2)"></button>
+            <button class="button" id="yellow-button" onclick="handleButtonClick(3)"></button>
+            <!-- <button class="btn green" id="green-button" onclick="handleButtonClick(0)"></button>
+            <button class="btn red" id="red-button" onclick="handleButtonClick(1)"></button>
+            <button class="btn yellow" id="blue-button" onclick="handleButtonClick(2)"></button>
+            <button class="btn blue" id="yellow-button" onclick="handleButtonClick(3)"></button> -->
         </div>
+        <p class="game-over" id="game-over">GAME<br>OVER</p>
     </div>
     <script src="./script.js"></script>
 </body>

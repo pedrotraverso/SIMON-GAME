@@ -1,0 +1,39 @@
+@font-face {
+    font-family: 'Early GameBoy';
+    src: url(./fonts/early-gameboy.ttf);
+}
+
+@font-face {
+    font-family: 'De Pixel';
+    src: url(./fonts/depixelhalbfett.ttf);
+}
+
+@font-face {
+    font-family: 'Sarpanch Black';
+    src: url(./fonts/sarpanch-black.ttf);
+}
+
+@font-face {
+    font-family: 'Sarpanch Bold';
+    src: url(./fonts/sarpanch-bold.ttf);
+}
+
+@font-face {
+    font-family: 'Sarpanch ExtraBold';
+    src: url(./fonts/sarpanch-extrabold.ttf);
+}
+
+@font-face {
+    font-family: 'Sarpanch Medium';
+    src: url(./fonts/sarpanch-medium.ttf);
+}
+
+@font-face {
+    font-family: 'Sarpanch Regular';
+    src: url(./fonts/sarpanch-regular.ttf);
+}
+
+@font-face {
+    font-family: 'Sarpanch SemiBold';
+    src: url(./fonts/sarpanch-semibold.ttf);
+}
