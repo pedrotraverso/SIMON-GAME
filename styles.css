@@ -67,8 +67,8 @@ body {
 
 #board {
     position: relative;
-    width: 420px;
-    height: 420px;
+    min-width: 420px;
+    min-height: 420px;
     border-radius: 50%;
     /* background-color: #000000; */
     display: flex;
