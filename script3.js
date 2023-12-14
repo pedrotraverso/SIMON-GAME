@@ -24,38 +24,48 @@ let lightScore = 0;
 // Variable para almacenar el puntaje de la sequencia
 let sequenceScore = 0;
 
-const logo = document.getElementById('logo');
+// Variable para almacenar el tiempo al iniciar la partida
+let startTime;
 
-logo.style.filter = 'opacity(60%)';
-greenButton.style.background = 'radial-gradient(circle, #2f2f2f 35%, #000000 100%)';
-redButton.style.background = 'radial-gradient(circle, #2f2f2f 35%, #000000 100%)';
-blueButton.style.background = 'radial-gradient(circle, #2f2f2f 35%, #000000 100%)';
-yellowButton.style.background = 'radial-gradient(circle, #2f2f2f 35%, #000000 100%)';
+// Array para almacenar los resultados de cada partida
+let gameResults = [];
 
-startButton.addEventListener('click', powerGame);
 
-//Función para prender el juego
-function powerGame() {
-    logo.style.filter = 'none';
-    greenButton.style.background = 'radial-gradient(circle, rgb(0, 128, 0) 35%, #000000 100%)';
-    redButton.style.background = 'radial-gradient(circle, rgb(192, 0, 0) 35%, #000000 100%)';
-    blueButton.style.background = 'radial-gradient(circle, rgb(0, 0, 192) 35%, #000000 100%)';
-    yellowButton.style.background = 'radial-gradient(circle, rgb(192, 192, 0) 35%, #000000 100%)';
 
-    const powerOnIcon = document.getElementById('power-on-icon');
-    const powerOffIcon = document.getElementById('power-off-icon');
-    const playIcon = document.getElementById('play-icon');
-    const restartIcon = document.getElementById('restart-icon');
+// Obtener el elemento del modal
+const results = document.getElementById('results-container');
 
-    powerOnIcon.style.display = 'none';
-    powerOffIcon.style.display = 'none';
-    playIcon.style.display = 'inline';
-    restartIcon.style.display = 'none';
 
-    startButton.addEventListener('click', startGame);
-}
 
-let isGameActive = true;
+// Obtén el elemento del modal
+const modal2 = document.getElementById('myModal');
+
+// Ventana modal
+var modale = document.getElementById("ventanaModal");
+
+// Hace referencia al elemento <span> que tiene la X que cierra la ventana
+var span = document.getElementsByClassName("cerrar")[0];
+
+// Cuando el usuario hace click en el botón, se abre la ventana
+boton.addEventListener("click", function () {
+    modale.style.display = "block";
+});
+
+// Si el usuario hace click en la x, la ventana se cierra
+span.addEventListener("click", function () {
+    modale.style.display = "none";
+});
+
+// Si el usuario hace click fuera de la ventana, se cierra.
+window.addEventListener("click", function (event) {
+    if (event.target == modale) {
+        modale.style.display = "none";
+    }
+});
+
+
+
+startButton.addEventListener('click', startGame);
 
 // Función para iniciar el juego
 function startGame() {
@@ -68,44 +78,16 @@ function startGame() {
         return;
     }
 
-    const powerOnIcon = document.getElementById('power-on-icon');
-    const powerOffIcon = document.getElementById('power-off-icon');
+    const powerIcon = document.getElementById('power-icon');
     const playIcon = document.getElementById('play-icon');
     const restartIcon = document.getElementById('restart-icon');
 
-    powerOnIcon.style.display = 'inline';
-    powerOffIcon.style.display = 'none';
-    playIcon.style.display = 'none';
-    restartIcon.style.display = 'none';
-
-    isGameActive = true;
-
+    powerIcon.style.display = 'none';
+    restartIcon.style.display = 'inline';
     generateSequence();
     playSequence();
     startTimer();
-
-    startButton.addEventListener('click', exitGame);
-}
-
-function restartGame() {
-    // Ventana modal
-    var modal = document.getElementById("game-over");
-
-    // Cuando el usuario, se abre la ventana
-    modal.style.display = "none";
-    gameSequence = [];
-    playerSequence = [];
-    level = 1;
-    lightScore = 0;
-    sequenceScore = 0;
-    updateLightScore();
-    updateSequenceScore();
-    resetTimer();
-    startGame();
-}
-
-function stopGame() {
-    isGameActive = false;
+    startButton.addEventListener('click', restartGame);
 }
 
 // Función para generar una nueva secuencia de juego
@@ -117,29 +99,14 @@ function generateSequence() {
 }
 
 // Función para reproducir la secuencia de juego
-// function playSequence() {
-//     let i = 0;
-//     const sequenceInterval = setInterval(() => {
-//         const buttonIndex = gameSequence[i];
-//         lightUpButton(buttonIndex);
-//         i++;
-//         if (i >= gameSequence.length) {
-//             clearInterval(sequenceInterval);
-//         }
-//     }, 1000);
-// }
-
-// Función para reproducir la secuencia de juego
 function playSequence() {
     let i = 0;
     const sequenceInterval = setInterval(() => {
-        if (isGameActive) {
-            const buttonIndex = gameSequence[i];
-            lightUpButton(buttonIndex);
-            i++;
-            if (i >= gameSequence.length) {
-                clearInterval(sequenceInterval);
-            }
+        const buttonIndex = gameSequence[i];
+        lightUpButton(buttonIndex);
+        i++;
+        if (i >= gameSequence.length) {
+            clearInterval(sequenceInterval);
         }
     }, 1000);
 }
@@ -183,22 +150,18 @@ function lightUpButton(buttonIndex) {
     }, 500);
 }
 
-function exitGame() {
+function restartGame() {
     gameSequence = [];
     playerSequence = [];
     level = 1;
     lightScore = 0;
     sequenceScore = 0;
-    updateLightScore();
     updateSequenceScore();
     resetTimer();
-    const powerOnIcon = document.getElementById('power-on-icon');
-    const powerOffIcon = document.getElementById('power-off-icon');
+    const powerIcon = document.getElementById('power-icon');
     const playIcon = document.getElementById('play-icon');
     const restartIcon = document.getElementById('restart-icon');
-    powerOnIcon.style.display = 'none';
-    powerOffIcon.style.display = 'inline';
-    playIcon.style.display = 'none';
+    powerIcon.style.display = 'inline';
     restartIcon.style.display = 'none';
     window.location.href = "index.html";
 }
@@ -224,12 +187,8 @@ function startTimer() {
     if (!isRunning) {
         isRunning = true;
         timer = setInterval(updateTimer, 1000); // Cada 1000 ms (1 segundo)
-    }
-}
 
-function stopTimer() {
-    isRunning = false;
-    clearInterval(timer);
+    }
 }
 
 function updateTimer() {
@@ -265,41 +224,92 @@ function nextLevel() {
     updateSequenceScore();
 }
 
-// Función para mostrar y ocultar el contenido
-function toggleResults() {
-    var resultsContainer = document.getElementById('results-container');
-    var boardContainer = document.getElementById('board-container');
-    
-    if (resultsContainer.style.display === 'none' || resultsContainer.style.display === '') {
-        resultsContainer.style.display = 'inline-flex';
-        boardContainer.style.display = 'inline-flex';
-        resultsContainer.style.gridColumnStart = 1;
-        resultsContainer.style.gridColumnEnd = 2;
-        resultsContainer.style.gridRowStart = 2;
-        resultsContainer.style.gridRowEnd = 3;
-        boardContainer.style.gridColumnStart = 2;
-        boardContainer.style.gridColumnEnd = 3;
-        boardContainer.style.gridRowStart = 2;
-        boardContainer.style.gridRowEnd = 3;
-    } else {
-        resultsContainer.style.display = 'none';
-        boardContainer.style.display = 'inline-flex';
-        boardContainer.style.gridColumnStart = 1;
-        boardContainer.style.gridColumnEnd = 3;
-        boardContainer.style.gridRowStart = 2;
-        boardContainer.style.gridRowEnd = 3;
-    }
+// Función para finalizar el juego
+// function gameOver() {
+//     // const board = document.getElementById('board');
+//     const gameOver = document.getElementById('game-over');
+//     gameOver.style.display = 'inline';
+//     board.style.filter = 'grayscale(100%)';
+
+//     // Calcula el tiempo transcurrido y aplica la penalización
+//     const endTime = new Date().getTime();
+//     const elapsedTime = (endTime - startTime) / 1000; // segundos
+//     const penalty = 0.5; // ajusta según tu preferencia
+
+//     // Calcula el puntaje final
+//     const finalScore = lightScore - penalty * elapsedTime;
+
+//     // Guarda el resultado de la partida
+//     saveGameResult(finalScore);
+
+//     gameSequence = [];
+//     playerSequence = [];
+//     level = 1;
+//     lightScore = 0;
+//     sequenceScore = 0;
+//     updateLightScore();
+//     updateSequenceScore();
+//     resetTimer();
+// }
+
+// Nueva función para guardar el resultado de la partida
+function saveGameResult(finalScore) {
+    const playerName = document.getElementById('player-name').value;
+    const currentDate = new Date();
+
+    const gameResult = {
+        playerName: playerName,
+        score: finalScore,
+        level: level,
+        date: currentDate.toLocaleString(),
+    };
+
+    // Agrega el resultado al array
+    gameResults.push(gameResult);
+
+    // Guarda el array en LocalStorage
+    localStorage.setItem('gameResults', JSON.stringify(gameResults));
+}
+
+// Nueva función para mostrar el ranking
+function showRanking() {
+    // Ordena los resultados por puntaje
+    gameResults.sort((a, b) => b.score - a.score);
+
+    // Muestra un popup con el ranking
+    const modalContent = document.getElementById('modal-content');
+    modalContent.innerHTML = '<h2>Game Results Ranking</h2>';
+
+    gameResults.forEach((result, index) => {
+        const resultItem = document.createElement('p');
+        resultItem.textContent = `${index + 1}. ${result.playerName} - Score: ${result.score} - Level: ${result.level} - Date: ${result.date}`;
+        modalContent.appendChild(resultItem);
+    });
+
+    results.style.display = 'block';
+}
+
+function gameOver() {
+    const gameOverElement = document.getElementById('game-over');
+    gameOverElement.style.display = 'inline';
+    board.style.filter = 'grayscale(100%)';
+
+    // Muestra el modal de Game Over
+    showModal();
 }
 
 // Función para mostrar el modal
-function gameOver() {
-    // Detener el temporizador
-    stopGame();
-    stopTimer();
+function showModal() {
+    modal.style.display = 'block';
+}
 
-    // Ventana modal
-    var modal = document.getElementById("game-over");
+// Función para reiniciar el juego al hacer clic en el botón del modal
+function restartGame() {
+    modal.style.display = 'none';
+    restartGame();
+}
 
-    // Cuando el usuario, se abre la ventana
-    modal.style.display = "block";
+// Nueva función para cerrar el popup
+function closeModal() {
+    results.style.display = 'none';
 }

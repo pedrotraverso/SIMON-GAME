@@ -11,22 +11,47 @@
 </head>
 <body>
     <div id="bar">
-        <span id="level">Level: 1</span>
-        <span id="score">
-            Score: <span id="points">0</span>
-        </span>
-        <span id="timer">
-            Time: <span id="minutes">00</span>:<span id="seconds">00</span>
-        </span>
+        <a id="contacto" href="./subscription.html" title="Contacto">
+            <img id="user-icon" src="./img/user.svg" alt="user-icon"/>
+        </a>
+        <div id="central-bar">
+            <button id="results-button" onclick="toggleResults()">High Scores</button>
+            <span id="name-input-container">
+                <label for="player-name">Player Name:</label>
+                <input type="text" id="player-name" placeholder=""/>
+            </span>
+            <span id="level">Level: 1</span>
+            <span id="light-score">
+                Light Score: <span id="points">0</span>
+            </span>
+            <span id="sequence-score">
+                Sequence Score: <span id="points">0</span>
+            </span>
+            <span id="timer">
+                Time: <span id="minutes">00</span>:<span id="seconds">00</span>
+            </span>
+        </div>
+        <a id="github-icon-container" href="https://github.com/pedrotraverso/SIMON-GAME.git" target="_blank" title="Link GitHub">
+            <img id="github-icon" src="./img/github-icon.svg" alt="github-icon"/>
+        </a>
+    </div>
+    <div id="results-container">
+        <div id="hidden-results-content">
+            <span id="close-modal" onclick="closeModal()">&times;</span>
+            <h2>High Scores</h2>
+            <div id="modal-rankings"></div>
+        </div>
     </div>
     <div id="board-container">
         <div id="board">
             <div id="center-circle">
                 <div id="button-container">
-                    <button id="start-button" onclick="startGame()">
-                        <img id="power-icon" src="./img/play-icon.svg" alt="power-icon"/>
+                    <button id="start-button">
+                        <img id="power-on-icon" src="./img/power-on-icon.svg" alt="power-on-icon" style="display: none"/>
+                        <img id="power-off-icon" src="./img/power-off-icon.svg" alt="power-off-icon" style="display: inline"/>
                         <img id="play-icon" src="./img/play-icon.svg" alt="play-icon" style="display: none"/>
-                        <img id="reset-icon" src="./img/reset-icon.svg" alt="reset-icon" style="display: none"/>
+                        <img id="play-on-icon" src="./img/play-on-icon.svg" alt="play-on-icon" style="display: none"/>
+                        <img id="restart-icon" src="./img/restart-icon.svg" alt="restart-icon" style="display: none"/>
                     </button>
                 </div>
                 <img id="logo" src="./img/simon-logo.svg" alt="logo"/>
@@ -37,7 +62,16 @@
             <button class="button" id="blue-button" onclick="handleButtonClick(2)"></button>
             <button class="button" id="yellow-button" onclick="handleButtonClick(3)"></button>
         </div>
-        <p class="game-over" id="game-over">GAME<br>OVER</p>
+       <!-- Modal para mostrar el mensaje de Game Over -->
+        <div id="game-over" class="modal">
+            <div class="modal-content">
+                <h1>GAME OVER</h1>
+                <div id="buttons-container">
+                    <button class="restart-button" onclick="restartGame()">Restart</button>
+                    <button class="restart-button" onclick="exitGame()">Exit</button>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="./script.js"></script>
 </body>

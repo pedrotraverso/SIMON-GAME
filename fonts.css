@@ -37,3 +37,33 @@
     font-family: 'Sarpanch SemiBold';
     src: url(./fonts/sarpanch-semibold.ttf);
 }
+
+@font-face {
+    font-family: 'Velino Sans Bold';
+    src: url(./fonts/velino-sans-bold.woff2);
+}
+
+@font-face {
+    font-family: 'Velino Sans Book';
+    src: url(./fonts/velino-sans-book.woff2);
+}
+
+@font-face {
+    font-family: 'Velino Display Book';
+    src: url(./fonts/velino-display-book.otf);
+}
+
+@font-face {
+    font-family: 'Velino Display Light';
+    src: url(./fonts/velino-display-light.otf);
+}
+
+@font-face {
+    font-family: 'Velino Headline Book';
+    src: url(./fonts/velino-headline-book.woff2);
+}
+
+@font-face {
+    font-family: 'Velino Text Book';
+    src: url(./fonts/velino-text-book.woff2);
+}
