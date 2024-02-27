@@ -513,27 +513,51 @@ function handleHighScores() {
     const highScoresContainer = document.getElementById("high-scores-container");
     const mainContainer = document.getElementById("main-container");
 
-    // Verificar si la ventana con la tabla de máximos puntajes está visible u oculta
-    if (highScoresContainer.style.display === "none" || highScoresContainer.style.display === "") {
-        // Mostrar la ventana con la tabla de máximos puntajes y ajustar estilos
-        highScoresContainer.style.display = "inline-flex";
-        mainContainer.style.display = "inline-flex";
-        highScoresContainer.style.gridColumnStart = 1;
-        highScoresContainer.style.gridColumnEnd = 2;
-        highScoresContainer.style.gridRowStart = 2;
-        highScoresContainer.style.gridRowEnd = 3;
-        mainContainer.style.gridColumnStart = 2;
-        mainContainer.style.gridColumnEnd = 3;
-        mainContainer.style.gridRowStart = 2;
-        mainContainer.style.gridRowEnd = 3;
+    // Obtener el tamaño de la ventana
+    const windowWidth = window.innerWidth;
+
+    if (windowWidth <= 639) {
+        // Para pantalla de dispositivo móvil, verificar si la ventana con la tabla de máximos puntajes está visible u oculta
+        if (highScoresContainer.style.display === "none" || highScoresContainer.style.display === "") {
+            // Mostrar la ventana con la tabla de máximos puntajes y ajustar estilos
+            highScoresContainer.style.display = "inline-flex";
+            mainContainer.style.display = "none";
+            highScoresContainer.style.gridRowStart = 2;
+            highScoresContainer.style.gridRowEnd = 3;
+            highScoresContainer.style.gridColumnStart = 1;
+            highScoresContainer.style.gridColumnEnd = 2;
+        } else {
+            // Ocultar la ventana con la tabla de máximos puntajes y ajustar estilos
+            highScoresContainer.style.display = "none";
+            mainContainer.style.display = "inline-flex";
+            mainContainer.style.gridRowStart = 2;
+            mainContainer.style.gridRowEnd = 3;
+            mainContainer.style.gridColumnStart = 1;
+            mainContainer.style.gridColumnEnd = 2;
+        }
     } else {
-        // Ocultar la ventana con la tabla de máximos puntajes y ajustar estilos
-        highScoresContainer.style.display = "none";
-        mainContainer.style.display = "inline-flex";
-        mainContainer.style.gridColumnStart = 1;
-        mainContainer.style.gridColumnEnd = 3;
-        mainContainer.style.gridRowStart = 2;
-        mainContainer.style.gridRowEnd = 3;
+        // Para otras pantallas, verificar si la ventana con la tabla de máximos puntajes está visible u oculta
+        if (highScoresContainer.style.display === "none" || highScoresContainer.style.display === "") {
+            // Mostrar la ventana con la tabla de máximos puntajes y ajustar estilos
+            highScoresContainer.style.display = "inline-flex";
+            mainContainer.style.display = "inline-flex";
+            highScoresContainer.style.gridRowStart = 2;
+            highScoresContainer.style.gridRowEnd = 3;
+            highScoresContainer.style.gridColumnStart = 1;
+            highScoresContainer.style.gridColumnEnd = 2;
+            mainContainer.style.gridRowStart = 2;
+            mainContainer.style.gridRowEnd = 3;
+            mainContainer.style.gridColumnStart = 2;
+            mainContainer.style.gridColumnEnd = 3;
+        } else {
+            // Ocultar la ventana con la tabla de máximos puntajes y ajustar estilos
+            highScoresContainer.style.display = "none";
+            mainContainer.style.display = "inline-flex";
+            mainContainer.style.gridRowStart = 2;
+            mainContainer.style.gridRowEnd = 3;
+            mainContainer.style.gridColumnStart = 1;
+            mainContainer.style.gridColumnEnd = 3;
+        }
     }
 }
 

@@ -10,26 +10,20 @@ body {
 #bar {
     grid-column-start: 1;
     grid-column-end: 3;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background-color:#000000;
+    display: grid;
+    grid-template-rows: 50px;
+    /* grid-template-columns: 10% 12.5% 30% 7.5% 10% 12.5% 7.5% 10%; */
+    grid-template-columns: 5% 12.5% 30% 10% 12.5% 15% 10% 5%;
+    background-color: #000000;
     border-bottom: 1px solid #2f2f2f;
-}
-
-#central-bar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 #high-scores-container {
     display: none;
-    grid-column-start: 1;
-    grid-column-end: 2;
     grid-row-start: 2;
     grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 2;
     background-color: #000000;
     flex-direction: row;
     justify-content: center;
@@ -48,21 +42,20 @@ body {
 }
 
 #main-container {
-    grid-column-start: 1;
-    grid-column-end: 3;
     grid-row-start: 2;
     grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 3;
     background-color: #000000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#main-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+#hidden-main-container {
+    width: 100%;
+    /* padding: 0 30px; */
 }
 
 #board-container {
@@ -171,10 +164,18 @@ body {
 }
 
 #user-icon-container {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 2;
     display: flex;
+    /* justify-self: flex-start; */
+    justify-self: center;
+    align-self: center;
     justify-content: center;
-    align-items:flex-end;
-    margin-left: 20px;
+    align-items: flex-end;
+    /* margin-left: 30px; */
+    /* margin: 20px; */
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -187,10 +188,15 @@ body {
 }
 
 #github-icon-container {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 8;
+    grid-column-end: 9;
     display: flex;
+    /* justify-content: flex-end; */
     justify-content: center;
     align-items: center;
-    margin: 20px;
+    /* margin-right: 30px; */
 }
 
 #github-icon {
@@ -254,8 +260,56 @@ body {
     text-align: center;
     font-size: 16px;
     color: #c0c0c0;
-    margin: 20px;
+    /* margin: 20px; */
     letter-spacing: 0.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#player-name-container {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 3;
+    grid-column-end: 4;
+    /* width: 340px; */
+    /* flex-direction: column; */
+}
+
+#level {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 4;
+    grid-column-end: 5;
+    /* width: 50px; */
+    flex-direction: column;
+}
+
+#light-score {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 5;
+    grid-column-end: 6;
+    /* width: 100px; */
+    flex-direction: column;
+}
+
+#sequence-score {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 6;
+    grid-column-end: 7;
+    /* width: 140px; */
+    flex-direction: column;
+}
+
+#timer {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 7;
+    grid-column-end: 8;
+    /* width: 50px; */
+    flex-direction: column;
 }
 
 #player-name {
@@ -266,9 +320,11 @@ body {
     text-align: start;
     font-size: 16px;
     color: #c0c0c0;
-    margin: 5px;
-    padding: 5px;
+    margin: 10px;
+    padding: 0 10px;
     letter-spacing: 0.5px;
+    width: 250px;
+    height: 30px;
 }
 
 h1 {
@@ -322,6 +378,10 @@ h2 {
 }
 
 #high-scores-button {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 2;
+    grid-column-end: 3;
     font-family: 'Sarpanch Regular';
     letter-spacing: 0.5px;
     display: flex;
@@ -332,10 +392,13 @@ h2 {
     border-radius: 50px;
     cursor: pointer;
     border: none;
+    justify-self: center;
+    align-self: center;
     justify-content: center;
     align-items: center;
     border: 1px solid #2f2f2f;
     color: #c0c0c0;
+    /* margin: 20px; */
 }
 
 #delete-high-scores-button {
@@ -360,7 +423,8 @@ h2 {
     border-collapse: collapse;
 }
 
-#high-scores-table th, #high-scores-table td {
+#high-scores-table th,
+#high-scores-table td {
     border: 1px solid #1a1a1a;
     padding: 8px;
     text-align: center;

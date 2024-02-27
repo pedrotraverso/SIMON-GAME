@@ -1,19 +1,169 @@
-/*
-  device = laptops, desktops
-  screen = B/w 1025px x 1280px
-  MacBook Pro (Retina, Mid 2012) = width: 2880px x height:1800px
- */
+/* 
+    device = laptops, desktops
+    screen = B/w 1025px x 1280px
+    MacBook Pro (Retina, Mid 2012) = width: 2880px x height:1800px
+*/
 @media only screen and (min-width: 1024px) {}
 
-/*
-  device = tablets
-  screen = B/w 768px x 1024px
- */
+/* 
+    device = tablets
+    screen = B/w 768px x 1024px
+*/
 @media only screen and (min-width: 640px) and (max-width: 1023px) {}
 
-/*
-  device = mobiles
-  screen = B/w 320px x 768px
-  iPhone 11 Pro Max = width: 1242px x height:2688px
- */
-@media only screen and (max-width: 639px) {}
+/* 
+    device = mobiles
+    screen = B/w 320px x 768px
+    iPhone 11 Pro Max = width: 1242px x height:2688px
+*/
+@media only screen and (max-width: 639px) {
+    body {
+        display: grid;
+        grid-template-rows: 150px 1fr;
+        grid-template-columns: 1fr;
+        height: 100vh;
+        margin: 0;
+        background-color: #000000;
+    }
+
+    #bar {
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        display: grid;
+        grid-template-rows: repeat(3, 50px);
+        grid-template-columns: repeat(4, 1fr);
+        background-color: #000000;
+        border-bottom: 1px solid #2f2f2f;
+    }
+
+    #high-scores-container {
+        display: none;
+        grid-row-start: 2;
+        grid-row-end: 3;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        background-color: #000000;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        border-right: 1px solid #2f2f2f;
+        font-family: 'Sarpanch Regular';
+        text-align: center;
+        font-size: 14px;
+        color: #c0c0c0;
+        letter-spacing: 0.5px;
+    }
+
+    #main-container {
+        grid-row-start: 2;
+        grid-row-end: 3;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        background-color: #000000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #user-icon-container {
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        display: flex;
+        /* justify-self: flex-start; */
+        justify-self: center;
+        align-self: center;
+        justify-content: center;
+        align-items: flex-end;
+        /* margin-left: 30px; */
+        /* margin: 20px; */
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #c0c0c0;
+    }
+
+    #github-icon-container {
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 4;
+        grid-column-end: 5;
+        display: flex;
+        /* justify-content: flex-end; */
+        justify-content: center;
+        align-items: center;
+        /* margin-right: 30px; */
+    }
+
+    #player-name-container {
+        grid-row-start: 3;
+        grid-row-end: 4;
+        grid-column-start: 1;
+        grid-column-end: 5;
+        /* width: 340px; */
+        /* flex-direction: column; */
+    }
+
+    #level {
+        grid-row-start: 2;
+        grid-row-end: 3;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        /* width: 50px; */
+        flex-direction: column;
+    }
+
+    #light-score {
+        grid-row-start: 2;
+        grid-row-end: 3;
+        grid-column-start: 2;
+        grid-column-end: 3;
+        /* width: 100px; */
+        flex-direction: column;
+    }
+
+    #sequence-score {
+        grid-row-start: 2;
+        grid-row-end: 3;
+        grid-column-start: 3;
+        grid-column-end: 4;
+        /* width: 140px; */
+        flex-direction: column;
+    }
+
+    #timer {
+        grid-row-start: 2;
+        grid-row-end: 3;
+        grid-column-start: 4;
+        grid-column-end: 5;
+        /* width: 50px; */
+        flex-direction: column;
+    }
+
+    #high-scores-button {
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 2;
+        grid-column-end: 4;
+        font-family: 'Sarpanch Regular';
+        letter-spacing: 0.5px;
+        display: flex;
+        width: 100px;
+        height: 25px;
+        font-size: 12px;
+        background: #000000 linear-gradient(#2f2f2f 0%, #000000 50%);
+        border-radius: 50px;
+        cursor: pointer;
+        border: none;
+        justify-self: center;
+        align-self: center;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #2f2f2f;
+        color: #c0c0c0;
+        /* margin: 20px; */
+    }
+}
