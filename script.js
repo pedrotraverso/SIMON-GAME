@@ -1,18 +1,29 @@
-// Obtener los elementos de los botones
-const greenButton = document.getElementById('green-button');
-const redButton = document.getElementById('red-button');
-const blueButton = document.getElementById('blue-button');
-const yellowButton = document.getElementById('yellow-button');
+// Obtener los elementos del DOM por sus identificadores
+const playerNameInput = document.getElementById("player-name");
 
-const colorButtons = ['green-button', 'red-button', 'blue-button', 'yellow-button'];
+const levelNumber = document.getElementById("level-number");
+const lightScorePoints = document.getElementById("light-score-points");
+const sequenceScorePoints = document.getElementById("sequence-score-points");
+const timerMinutes = document.getElementById("minutes");
+const timerSeconds = document.getElementById("seconds");
 
-// Obtener el botón de inicio
-const powerOnButton = document.getElementById('power-on-button');
-const powerOffButton = document.getElementById('power-off-button');
-const playPauseButton = document.getElementById('play-pause-button');
-const playIcon = document.getElementById('play-icon');
-const pauseIcon = document.getElementById('pause-icon');
-const restartIcon = document.getElementById('restart-icon');
+const logo = document.getElementById("logo");
+
+const turnOnButton = document.getElementById("turn-on-button");
+const turnOffButton = document.getElementById("turn-off-button");
+const playRestartButton = document.getElementById("play-restart-button");
+const playIcon = document.getElementById("play-icon");
+const restartIcon = document.getElementById("restart-icon");
+
+const greenButton = document.getElementById("green-button");
+const redButton = document.getElementById("red-button");
+const blueButton = document.getElementById("blue-button");
+const yellowButton = document.getElementById("yellow-button");
+
+const modal = document.getElementById("game-over-container");
+
+// Array que contiene los identificadores de los botones de colores
+const colorButtons = ["green-button", "red-button", "blue-button", "yellow-button"];
 
 // Array para almacenar la secuencia del juego
 let gameSequence = [];
@@ -26,195 +37,199 @@ let level = 1;
 // Variable para almacenar el puntaje de las luces
 let lightScore = 0;
 
-// Variable para almacenar el puntaje de la sequencia
+// Variable para almacenar el puntaje de la secuencia
 let sequenceScore = 0;
 
-const logo = document.getElementById('logo');
+// Establecer el estilo inicial del filtro del logo para que tenga opacidad
+logo.style.filter = "opacity(60%)";
 
-logo.style.filter = 'opacity(60%)';
-greenButton.style.background = 'radial-gradient(circle, #2f2f2f 35%, #000000 100%)';
-redButton.style.background = 'radial-gradient(circle, #2f2f2f 35%, #000000 100%)';
-blueButton.style.background = 'radial-gradient(circle, #2f2f2f 35%, #000000 100%)';
-yellowButton.style.background = 'radial-gradient(circle, #2f2f2f 35%, #000000 100%)';
+// Configurar los estilos iniciales de la visibilidad de los botones
+turnOnButton.style.display = "inline";
+turnOffButton.style.display = "none";
+playRestartButton.style.display = "none";
+playIcon.style.display = "none";
+restartIcon.style.display = "none";
 
-powerOnButton.style.display = 'inline';
-powerOffButton.style.display = 'none';
-playPauseButton.style.display = 'none';
-playIcon.style.display = 'none';
-pauseIcon.style.display = 'none';
-restartIcon.style.display = 'none';
+// Configurar los estilos iniciales del color de los botones de colores
+greenButton.style.background = "radial-gradient(circle, #2f2f2f 35%, #000000 100%)";
+redButton.style.background = "radial-gradient(circle, #2f2f2f 35%, #000000 100%)";
+blueButton.style.background = "radial-gradient(circle, #2f2f2f 35%, #000000 100%)";
+yellowButton.style.background = "radial-gradient(circle, #2f2f2f 35%, #000000 100%)";
 
 // Deshabilitar los botones de colores
-disableColorButtons();
+disableLightButtons();
 
-// Eliminar event listeners anteriores para evitar duplicados
-powerOnButton.removeEventListener('click', powerGame);
-powerOffButton.removeEventListener('click', exitGame);
-playPauseButton.removeEventListener('click', startGame);
-playPauseButton.removeEventListener('click', restartGame);
+// Eliminar las escuchas de los eventos clic de los botones anteriores para evitar duplicados
+turnOnButton.removeEventListener("click", powerGame);
+turnOffButton.removeEventListener("click", exitGame);
+playRestartButton.removeEventListener("click", startGame);
+playRestartButton.removeEventListener("click", restartGame);
 
-powerOnButton.addEventListener('click', powerGame);
+// Agregar una escucha del evento clic al botón para encender el juego
+turnOnButton.addEventListener("click", powerGame);
 
 // Función para encender el juego
 function powerGame() {
-    // Habilita la opción de ingresar nombre
-    const playerNameInput = document.getElementById('player-name');
+    // Habilitar la opción de ingresar el nombre del jugador
     playerNameInput.disabled = false;
 
     stopGame();
-  
-    // Establecer los estilos y elementos visuales
-    logo.style.filter = 'none';
 
-    greenButton.style.background = 'radial-gradient(circle, rgb(0, 128, 0) 35%, #000000 100%)';
-    redButton.style.background = 'radial-gradient(circle, rgb(192, 0, 0) 35%, #000000 100%)';
-    blueButton.style.background = 'radial-gradient(circle, rgb(0, 0, 192) 35%, #000000 100%)';
-    yellowButton.style.background = 'radial-gradient(circle, rgb(192, 192, 0) 35%, #000000 100%)';
+    // Establecer el estilo del filtro del logo para que no tenga ninguna opacidad
+    logo.style.filter = "none";
 
-    powerOnButton.style.display = 'none';
-    powerOffButton.style.display = 'inline';
-    playPauseButton.style.display = 'inline';
-    playIcon.style.display = 'inline';
-    pauseIcon.style.display = 'none';
-    restartIcon.style.display = 'none';
+    // Configurar los estilos de la visibilidad de los botones
+    turnOnButton.style.display = "none";
+    turnOffButton.style.display = "inline";
+    playRestartButton.style.display = "inline";
+    playIcon.style.display = "inline";
+    restartIcon.style.display = "none";
+
+    // Configurar los estilos del color de fondo de los botones de colores
+    greenButton.style.background = "radial-gradient(circle, rgb(0, 128, 0) 35%, #000000 100%)";
+    redButton.style.background = "radial-gradient(circle, rgb(192, 0, 0) 35%, #000000 100%)";
+    blueButton.style.background = "radial-gradient(circle, rgb(0, 0, 192) 35%, #000000 100%)";
+    yellowButton.style.background = "radial-gradient(circle, rgb(192, 192, 0) 35%, #000000 100%)";
 
     // Deshabilitar los botones de colores
-    disableColorButtons();
+    disableLightButtons();
 
-    // Muestra el número de nivel inicial en el elemento HTML
-    const levelNumberElement = document.getElementById('level-number');
-    levelNumberElement.textContent = '1';
+    // Mostrar el número de nivel inicial en el elemento HTML
+    levelNumber.textContent = "1";
 
-    // Muestra el número de light score inicial en el elemento HTML
-    const lightScorePointsElement = document.getElementById('light-score-points');
-    lightScorePointsElement.textContent = '0';
+    // Mostrar el número de light score inicial en el elemento HTML
+    lightScorePoints.textContent = "0";
 
-    // Muestra el número de sequence score inicial en el elemento HTML
-    const sequenceScorePointsElement = document.getElementById('sequence-score-points');
-    sequenceScorePointsElement.textContent = '0';
+    // Mostrar el número de sequence score inicial en el elemento HTML
+    sequenceScorePoints.textContent = "0";
 
-    // Muestra el número de minutos del timer inicial en el elemento HTML
-    const timerMinutesElement = document.getElementById('minutes');
-    timerMinutesElement.textContent = '00';
+    // Mostrar el número de minutos del timer inicial en el elemento HTML
+    timerMinutes.textContent = "00";
 
-    // Muestra el número de segundos del timer inicial en el elemento HTML
-    const timerSecondsElement = document.getElementById('seconds');
-    timerSecondsElement.textContent = '00';
+    // Mostrar el número de segundos del timer inicial en el elemento HTML
+    timerSeconds.textContent = "00";
 
-    // Eliminar event listeners anteriores para evitar duplicados
-    powerOnButton.removeEventListener('click', powerGame);
+    // Agregar el título del botón para que lo muestre en pantalla al pasar el ratón por encima
+    playRestartButton.title = "Play";
 
-    // Agregar nuevos event listeners
-    powerOffButton.addEventListener('click', exitGame);
-    playPauseButton.addEventListener('click', startGame);
+    // Eliminar la escucha del evento clic del botón anterior para evitar duplicados
+    turnOnButton.removeEventListener("click", powerGame);
+
+    // Agregar las escuchas de los eventos clic a los botones
+    turnOffButton.addEventListener("click", exitGame);
+    playRestartButton.addEventListener("click", startGame);
 }
 
 // Función para salir del juego
 function exitGame() {
-    // Cerrar la ventana modal
-    var modal = document.getElementById("game-over");
+    // Cerrar la ventana de fin de juego
     modal.style.display = "none";
 
     if (isGameActive) {
         // Guardar los resultados de la partida actual si el juego está activo
-        saveGameResult();
+        saveGameResults();
 
-        // Actualizar el ranking con los resultados actuales si el juego está activo
-        updateRanking();
+        // Actualizar la tabla con los resultados actuales si el juego está activo
+        updateHighScores();
     }
 
     stopGame();
 
-    // Restablecer el temporizador y los puntajes
+    // Inicializar el temporizador y los puntajes
     initializeTimer();
     initializeLevel();
     initializeLightScore();
     initializeSequenceScore();
 
-    // Establecer los estilos y elementos visuales
-    logo.style.filter = 'opacity(60%)';
-    greenButton.style.background = 'radial-gradient(circle, #2f2f2f 35%, #000000 100%)';
-    redButton.style.background = 'radial-gradient(circle, #2f2f2f 35%, #000000 100%)';
-    blueButton.style.background = 'radial-gradient(circle, #2f2f2f 35%, #000000 100%)';
-    yellowButton.style.background = 'radial-gradient(circle, #2f2f2f 35%, #000000 100%)';
+    // Establecer el estilo del filtro del logo para que tenga opacidad
+    logo.style.filter = "opacity(60%)";
 
-    powerOnButton.style.display = 'inline';
-    powerOffButton.style.display = 'none';
-    playPauseButton.style.display = 'none';
-    playIcon.style.display = 'none';
-    pauseIcon.style.display = 'none';
-    restartIcon.style.display = 'none';
+    // Configurar los estilos de la visibilidad de los botones
+    turnOnButton.style.display = "inline";
+    turnOffButton.style.display = "none";
+    playRestartButton.style.display = "none";
+    playIcon.style.display = "none";
+    restartIcon.style.display = "none";
 
-    // Restablece el nombre del jugador y deshabilita la opción de ingresar nombre
-    const playerNameInput = document.getElementById('player-name');
-    playerNameInput.value = '';
+    // Configurar los estilos del color de los botones de colores
+    greenButton.style.background = "radial-gradient(circle, #2f2f2f 35%, #000000 100%)";
+    redButton.style.background = "radial-gradient(circle, #2f2f2f 35%, #000000 100%)";
+    blueButton.style.background = "radial-gradient(circle, #2f2f2f 35%, #000000 100%)";
+    yellowButton.style.background = "radial-gradient(circle, #2f2f2f 35%, #000000 100%)";
+
+    // Restablecer el nombre del jugador y deshabilitar la opción de ingresar el nombre del jugador
+    playerNameInput.value = "";
     playerNameInput.disabled = true;
 
     // Deshabilitar los botones de colores
-    disableColorButtons();;
+    disableLightButtons();;
 
-    // Eliminar event listeners anteriores para evitar duplicados
-    powerOffButton.removeEventListener('click', exitGame);
+    // Eliminar la escucha del evento clic del botón anterior para evitar duplicados
+    turnOffButton.removeEventListener("click", exitGame);
 
-    // Agregar nuevos event listeners
-    powerOnButton.addEventListener('click', powerGame);
+    // Agregar una escucha del evento clic al botón
+    turnOnButton.addEventListener("click", powerGame);
 }
 
 let isGameActive = true;
 
 // Función para iniciar la partida
 function startGame() {
-    // Obtener el nombre ingresado por el jugador
-    const playerName = document.getElementById('player-name').value;
+    // Obtener el valor ingresado del elemento nombre del jugador del DOM por su identificador
+    const playerNameValue = document.getElementById("player-name").value;
 
-    // Verificar que el nombre tenga al menos 3 letras
-    if (playerName.length < 3) {
-        alert('Please enter a name with at least 3 letters.');
+    // Verificar que el nombre del jugador tenga al menos 3 letras
+    if (playerNameValue.length < 3) {
+        alert("Please enter a name with at least 3 letters.");
         return;
     }
 
-    // Establecer los estilos y elementos visuales
-    powerOnButton.style.display = 'none';
-    powerOffButton.style.display = 'inline';
-    playPauseButton.style.display = 'inline';
-    playIcon.style.display = 'none';
-    pauseIcon.style.display = 'none';
-    restartIcon.style.display = 'inline';
+    // Configurar los estilos de la visibilidad de los botones
+    turnOnButton.style.display = "none";
+    turnOffButton.style.display = "inline";
+    playRestartButton.style.display = "inline";
+    playIcon.style.display = "none";
+    restartIcon.style.display = "inline";
 
     // Habilitar los botones de colores
-    enableColorButtons();
+    enableLightButtons();
 
     isGameActive = true;
 
-    // Deshabilita la opción de ingresar nombre
-    const playerNameInput = document.getElementById('player-name');
+    // Deshabilitar la opción de ingresar el nombre del jugador
     playerNameInput.disabled = true;
 
-    // Generar la secuencia, reproducir la secuencia e iniciar el temporizador
+    // Generar la secuencia
     generateSequence();
+
+    // Reproducir la secuencia
     playSequence();
+
+    // Iniciar el temporizador
     startTimer();
 
-    // Eliminar event listeners anteriores para evitar duplicados
-    playPauseButton.removeEventListener('click', startGame);
+    // Agregar el título del botón para que lo muestre en pantalla al pasar el ratón por encima
+    playRestartButton.title = "Restart";
 
-    // Agregar nuevos event listeners o realizar otras operaciones si es necesario
-    powerOffButton.addEventListener('click', exitGame);
-    playPauseButton.addEventListener('click', restartGame);
+    // Eliminar la escucha del evento clic del botón anterior para evitar duplicados
+    playRestartButton.removeEventListener("click", startGame);
+
+    // Agregar las escuchas de los eventos clic a los botones
+    turnOffButton.addEventListener("click", exitGame);
+    playRestartButton.addEventListener("click", restartGame);
 }
 
 // Función para iniciar una nueva partida
 function restartGame() {
-    // Cerrar la ventana modal
-    var modal = document.getElementById("game-over");
+    // Cerrar la ventana de fin de juego
     modal.style.display = "none";
 
     if (isGameActive) {
         // Guardar los resultados de la partida actual si el juego está activo
-        saveGameResult();
+        saveGameResults();
 
-        // Actualizar el ranking con los resultados actuales si el juego está activo
-        updateRanking();
+        // Actualizar la tabla con los resultados actuales si el juego está activo
+        updateHighScores();
     }
 
     stopGame();
@@ -226,25 +241,33 @@ function restartGame() {
     lightScore = 0;
     sequenceScore = 0;
 
-    // Restablecer el temporizador y los puntajes
-    resetTimer();
+    // Restablecer el puntaje de las luces
     updateLightScore();
+
+    // Restablecer el puntaje de la secuencia
     updateSequenceScore();
 
+    // Restablecer el temporizador
+    resetTimer();
+
     // Habilitar los botones de colores
-    enableColorButtons();
+    enableLightButtons();
 
-    // Eliminar event listeners anteriores para evitar duplicados
-    playPauseButton.removeEventListener('click', restartGame);
+    // Agregar el título del botón para que lo muestre en pantalla al pasar el ratón por encima
+    playRestartButton.title = "Play";
 
-    // Agregar nuevos event listeners
-    powerOffButton.addEventListener('click', exitGame);
-    playPauseButton.addEventListener('click', startGame);
+    // Eliminar la escucha del evento clic del botón anterior para evitar duplicados
+    playRestartButton.removeEventListener("click", restartGame);
 
-    // Reiniciar el juego
+    // Agregar las escuchas de los eventos clic a los botones
+    turnOffButton.addEventListener("click", exitGame);
+    playRestartButton.addEventListener("click", startGame);
+
+    // Encender el juego
     powerGame();
 }
 
+// Función para detener el juego
 function stopGame() {
     isGameActive = false;
 }
@@ -277,8 +300,8 @@ function playSequence() {
     }, 1000);
 }
 
-// Función para manejar el clic en los botones del juego
-function handleButtonClick(buttonIndex) {
+// Función para manejar el clic en los botones de colores
+function handleLightButtonClick(buttonIndex) {
     if (gameSequence.length > 0) {
         lightUpButton(buttonIndex);
         if (buttonIndex === gameSequence[playerSequence.length]) {
@@ -297,7 +320,7 @@ function handleButtonClick(buttonIndex) {
     }
 }
 
-// Función para verificar si la secuencia del jugador coincide con la secuencia actual
+// Función para verificar si la secuencia del jugador coincide con la secuencia actual generada
 function checkSequence() {
     for (let i = 0; i < playerSequence.length; i++) {
         if (playerSequence[i] !== gameSequence[i]) {
@@ -307,12 +330,12 @@ function checkSequence() {
     return true;
 }
 
-// Función para iluminar un botón
+// Función para iluminar un botón de color
 function lightUpButton(buttonIndex) {
     const buttons = [greenButton, redButton, blueButton, yellowButton];
-    buttons[buttonIndex].classList.add('active');
+    buttons[buttonIndex].classList.add("light-button-active");
     setTimeout(() => {
-        buttons[buttonIndex].classList.remove('active');
+        buttons[buttonIndex].classList.remove("light-button-active");
     }, 500);
 }
 
@@ -324,69 +347,68 @@ function nextLevel() {
     playSequence();
     sequenceScore++;
     updateSequenceScore();
-    // saveGameResult();
 
     // Agrega la siguiente línea para actualizar el nivel en pantalla
     updateLevel();
 }
 
-// Función para actualizar el puntaje de las luces acertadas en pantalla
+// Función para actualizar el puntaje de las luces
 function updateLightScore() {
-    const lightScoreElement = document.getElementById('light-score-points');
-    lightScoreElement.textContent = `${lightScore}`;
+    lightScorePoints.textContent = `${lightScore}`;
 }
 
-// Función para actualizar el puntaje de las luces acertadas en pantalla
+// Función para inicializar el puntaje de las luces
 function initializeLightScore() {
-    const lightScoreElement = document.getElementById('light-score-points');
-    lightScoreElement.textContent = "-";
+    lightScorePoints.textContent = "-";
 }
 
-// Función para actualizar el puntaje de las sequencias acertadas en pantalla
+// Función para actualizar el puntaje de las secuencias
 function updateSequenceScore() {
-    const sequenceScoreElement = document.getElementById('sequence-score-points');
-    sequenceScoreElement.textContent = `${sequenceScore}`;
+    sequenceScorePoints.textContent = `${sequenceScore}`;
 }
 
-// Función para actualizar el puntaje de las sequencias acertadas en pantalla
+// Función para inicializar el puntaje de las secuencias
 function initializeSequenceScore() {
-    const sequenceScoreElement = document.getElementById('sequence-score-points');
-    sequenceScoreElement.textContent = "-";
+    sequenceScorePoints.textContent = "-";
 }
 
-// Función para actualizar el puntaje de las luces acertadas en pantalla
+// Función para actualizar el nivel del juego
 function updateLevel() {
-    const levelElement = document.getElementById('level-number');
-    levelElement.textContent = `${level}`;
+    levelNumber.textContent = `${level}`;
 }
 
-// Función para actualizar el puntaje de las luces acertadas en pantalla
+// Función para inicializar el nivel del juego
 function initializeLevel() {
-    const levelElement = document.getElementById('level-number');
-    levelElement.textContent = "-";
+    levelNumber.textContent = "-";
 }
 
 // Función para deshabilitar los botones de colores
-function disableColorButtons() {
+function disableLightButtons() {
     greenButton.disabled = true;
     redButton.disabled = true;
     blueButton.disabled = true;
     yellowButton.disabled = true;
+
+    // Agregar la clase "light-button-disabled" a los botones desactivados
+    greenButton.classList.add("light-button-disabled");
+    redButton.classList.add("light-button-disabled");
+    blueButton.classList.add("light-button-disabled");
+    yellowButton.classList.add("light-button-disabled");
 }
 
 // Función para habilitar los botones de colores
-function enableColorButtons() {
+function enableLightButtons() {
     greenButton.disabled = false;
     redButton.disabled = false;
     blueButton.disabled = false;
     yellowButton.disabled = false;
+
+    // Eliminar la clase "light-button-disabled" de los botones habilitados
+    greenButton.classList.remove("light-button-disabled");
+    redButton.classList.remove("light-button-disabled");
+    blueButton.classList.remove("light-button-disabled");
+    yellowButton.classList.remove("light-button-disabled");
 }
-
-
-
-
-
-/* start TIMER */
 
 let timer;
 let minutes = 0;
@@ -407,24 +429,24 @@ function stopTimer() {
     clearInterval(timer);
 }
 
-// Función para resetear el temporizador
+// Función para restablecer el temporizador
 function resetTimer() {
     clearInterval(timer);
     seconds = 0;
     minutes = 0;
     isRunning = false;
-    document.getElementById('minutes').innerText = '00';
-    document.getElementById('seconds').innerText = '00';
+    timerMinutes.innerText = "00";
+    timerSeconds.innerText = "00";
 }
 
-// Función para resetear el temporizador
+// Función para inicializar el temporizador
 function initializeTimer() {
     clearInterval(timer);
     seconds = 0;
     minutes = 0;
     isRunning = false;
-    document.getElementById('minutes').innerText = '--';
-    document.getElementById('seconds').innerText = '--';
+    timerMinutes.innerText = "--";
+    timerSeconds.innerText = "--";
 }
 
 // Función para actualizar el temporizador
@@ -434,186 +456,186 @@ function updateTimer() {
         seconds = 0;
         minutes++;
     }
-    document.getElementById('minutes').innerText = padNumber(minutes);
-    document.getElementById('seconds').innerText = padNumber(seconds);
+    timerMinutes.innerText = padNumber(minutes);
+    timerSeconds.innerText = padNumber(seconds);
 }
 
-// Función para rellenar con ceros a la izquierda si es necesario
+// Función para rellenar con ceros a la izquierda en caso de ser necesario
 function padNumber(num) {
-    return num.toString().padStart(2, '0');
+    return num.toString().padStart(2, "0");
 }
 
-/* end TIMER */
-
-
-
-
-
-/* start RANKING */
-
-// Función para mostrar el modal
+// Función de fin de juego
 function gameOver() {
-    // Detener el temporizador
+    // Detener el juego
     stopGame();
+
+    // Detener el temporizador
     stopTimer();
 
     // Guardar los resultados del juego
-    saveGameResult();
+    saveGameResults();
 
-    // Al finalizar el juego, actualiza el elemento del DOM con los puntajes
-    updateRanking();
+    // Actualizar la tabla con los resultados guardados del juego
+    updateHighScores();
 
-    // Ventana modal
-    var modal = document.getElementById("game-over");
-
-    // Cuando el usuario, se abre la ventana
+    // Mostrar la ventana de fin de juego
     modal.style.display = "block";
 }
 
-// Función para guardar los resultados de la partida en LocalStorage
-function saveGameResult() {
-    const playerName = document.getElementById('player-name').value;
+// Función para guardar los resultados del juego localmente (localStorage)
+function saveGameResults() {
+    // Obtener el valor ingresado del elemento nombre del jugador del DOM por su identificador
+    const playerNameValue = document.getElementById("player-name").value;
+
+    // Crear un objeto con los resultados del juego
     const gameResult = {
-        playerName: playerName,
+        playerName: playerNameValue,
         lightScore: lightScore,
         sequenceScore: sequenceScore,
         level: level,
         dateTime: new Date()
     };
 
-    // Obtener el historial de juegos almacenado en LocalStorage
-    let gameHistory = JSON.parse(localStorage.getItem('gameHistory')) || [];
+    // Obtener el historial de juegos almacenados en localStorage
+    let gameHistory = JSON.parse(localStorage.getItem("gameHistory")) || [];
 
-    // Agregar el resultado actual al historial
+    // Agregar los resultados actuales al historial
     gameHistory.push(gameResult);
 
-    // Guardar el historial actualizado en LocalStorage
-    localStorage.setItem('gameHistory', JSON.stringify(gameHistory));
-
-    // Mensajes de registro en la consola
-    console.log('Resultado de la partida guardado en LocalStorage:', gameResult);
-    console.log('Historial de juegos actualizado:', gameHistory);
+    // Guardar el historial actualizado en localStorage
+    localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
 }
 
-// Función para mostrar y ocultar el contenido
-function toggleRanking() {
-    var resultsContainer = document.getElementById('results-container');
-    var boardContainer = document.getElementById('board-container');
+// Función para mostrar y ocultar la ventana con la tabla de máximos puntajes
+function handleHighScores() {
+    // Obtener los elementos del DOM necesarios por su identificador
+    const highScoresContainer = document.getElementById("high-scores-container");
+    const mainContainer = document.getElementById("main-container");
 
-    if (resultsContainer.style.display === 'none' || resultsContainer.style.display === '') {
-        resultsContainer.style.display = 'inline-flex';
-        boardContainer.style.display = 'inline-flex';
-        resultsContainer.style.gridColumnStart = 1;
-        resultsContainer.style.gridColumnEnd = 2;
-        resultsContainer.style.gridRowStart = 2;
-        resultsContainer.style.gridRowEnd = 3;
-        boardContainer.style.gridColumnStart = 2;
-        boardContainer.style.gridColumnEnd = 3;
-        boardContainer.style.gridRowStart = 2;
-        boardContainer.style.gridRowEnd = 3;
+    // Verificar si la ventana con la tabla de máximos puntajes está visible u oculta
+    if (highScoresContainer.style.display === "none" || highScoresContainer.style.display === "") {
+        // Mostrar la ventana con la tabla de máximos puntajes y ajustar estilos
+        highScoresContainer.style.display = "inline-flex";
+        mainContainer.style.display = "inline-flex";
+        highScoresContainer.style.gridColumnStart = 1;
+        highScoresContainer.style.gridColumnEnd = 2;
+        highScoresContainer.style.gridRowStart = 2;
+        highScoresContainer.style.gridRowEnd = 3;
+        mainContainer.style.gridColumnStart = 2;
+        mainContainer.style.gridColumnEnd = 3;
+        mainContainer.style.gridRowStart = 2;
+        mainContainer.style.gridRowEnd = 3;
     } else {
-        resultsContainer.style.display = 'none';
-        boardContainer.style.display = 'inline-flex';
-        boardContainer.style.gridColumnStart = 1;
-        boardContainer.style.gridColumnEnd = 3;
-        boardContainer.style.gridRowStart = 2;
-        boardContainer.style.gridRowEnd = 3;
+        // Ocultar la ventana con la tabla de máximos puntajes y ajustar estilos
+        highScoresContainer.style.display = "none";
+        mainContainer.style.display = "inline-flex";
+        mainContainer.style.gridColumnStart = 1;
+        mainContainer.style.gridColumnEnd = 3;
+        mainContainer.style.gridRowStart = 2;
+        mainContainer.style.gridRowEnd = 3;
     }
 }
 
-// Función para actualizar el ranking
-function updateRanking() {
-    // Obtén el elemento de la tabla en el DOM donde deseas mostrar los puntajes
-    const modalRankingsTable = document.getElementById('modal-rankings').getElementsByTagName('tbody')[0];
+// Función para actualizar la tabla de máximos puntajes
+function updateHighScores() {
+    // Obtener el elemento de la tabla de máximos puntajes en el DOM por su identificador donde se desea mostrar los resultados
+    const highScoresTable = document.getElementById("high-scores-table");
+    const tableBody = highScoresTable.getElementsByTagName("tbody")[0];
 
-    // Obtén el historial de juegos almacenado en LocalStorage
-    let gameHistory = JSON.parse(localStorage.getItem('gameHistory')) || [];
+    // Obtener el historial de juegos almacenados en localStorage
+    let gameHistory = JSON.parse(localStorage.getItem("gameHistory")) || [];
 
-    // Elimina todas las filas de la tabla
-    while (modalRankingsTable.firstChild) {
-        modalRankingsTable.removeChild(modalRankingsTable.firstChild);
+    // Eliminar todas las filas de la tabla
+    while (tableBody.firstChild) {
+        tableBody.removeChild(tableBody.firstChild);
     }
 
-    // Obtén el resultado más reciente
-    // const gameResult = gameHistory[gameHistory.length - 1];
-
-    // Construir filas de la tabla con los puntajes y la fecha/hora
+    // Crear las filas y las celdas de la tabla
     gameHistory.forEach(gameResult => {
-        // Construye una nueva fila para la tabla con los puntajes y la fecha/hora
-        const newRow = modalRankingsTable.insertRow();
+        // Insertar una nueva fila en la tabla con el nombre del jugador, el nivel, el puntaje de luces, la fecha y la hora
+        const newRow = tableBody.insertRow();
 
-        // Inserta celdas en la fila con la información del jugador y los puntajes
+        // Insertar una celda en la fila para el nombre del jugador
         const playerNameCell = newRow.insertCell(0);
+        // Establecer el contenido de la celda con el resultado del nombre del jugador
         playerNameCell.textContent = gameResult.playerName;
 
+        // Insertar una celda en la fila para el nivel
         const levelCell = newRow.insertCell(1);
+        // Establecer el contenido de la celda con el resultado del nivel
         levelCell.textContent = gameResult.level;
 
+        // Insertar una celda en la fila para el puntaje de luces
         const lightScoreCell = newRow.insertCell(2);
+        // Establecer el contenido de la celda con el resultado del puntaje de luces
         lightScoreCell.textContent = gameResult.lightScore;
 
-        // Agrega celdas para la fecha y la hora
+        // Insertar una celda en la fila para la fecha
         const dateCell = newRow.insertCell(3);
+
+        // Insertar una celda en la fila para la hora
         const timeCell = newRow.insertCell(4);
 
-        // Separa la fecha y la hora
+        // Separar la fecha y la hora en el formato correspondiente
         const date = new Date(gameResult.dateTime);
         const formattedDate = `${padNumber(date.getDate())}/${padNumber(date.getMonth() + 1)}/${date.getFullYear()}`;
         const formattedTime = `${padNumber(date.getHours())}:${padNumber(date.getMinutes())}:${padNumber(date.getSeconds())}`;
 
-        // Establece el contenido de las celdas de fecha y hora
+        // Establecer el contenido de la celda con el resultado de la fecha
         dateCell.textContent = formattedDate;
+
+        // Establecer el contenido de la celda con el resultado de la hora
         timeCell.textContent = formattedTime;
     });
 
-    // Ordena las filas de la tabla por el puntaje de luces (Light Score)
+    // Ordenar las filas de la tabla por el puntaje de luces
     sortTableByLightScore();
 }
 
-// Función para ordenar la tabla por el puntaje de luces (Light Score)
+// Función para ordenar la tabla por el puntaje de luces
 function sortTableByLightScore() {
-    const modalRankingsTable = document.getElementById('modal-rankings');
-    const tableBody = modalRankingsTable.getElementsByTagName('tbody')[0];
+    // Obtener el elemento de la tabla de máximos puntajes en el DOM por su identificador
+    const highScoresTable = document.getElementById("high-scores-table");
+    const tableBody = highScoresTable.getElementsByTagName("tbody")[0];
 
-    // Convierte las filas de la tabla en una matriz
+    // Convertir las filas de la tabla en una matriz
     const rowsArray = Array.from(tableBody.rows);
 
-    // Ordena la matriz según el valor del puntaje de luces (segunda columna)
+    // Ordenar la matriz según el valor del puntaje de luces (tercera columna)
     rowsArray.sort((a, b) => {
         const lightScoreA = parseInt(a.cells[2].textContent);
         const lightScoreB = parseInt(b.cells[2].textContent);
         return lightScoreB - lightScoreA; // Orden descendente
     });
 
-    // Elimina todas las filas de la tabla
+    // Eliminar todas las filas de la tabla
     while (tableBody.firstChild) {
         tableBody.removeChild(tableBody.firstChild);
     }
 
-    // Agrega las filas ordenadas de nuevo a la tabla
+    // Agregar las filas ordenadas a la tabla
     rowsArray.forEach(row => {
         tableBody.appendChild(row);
     });
 }
 
-// Obtén el botón para limpiar el ranking por su ID
-const clearRankingButton = document.getElementById('clear-ranking-button');
+// Obtener el elemento del botón para eliminar (limpiar) la tabla de máximos puntajes
+const deleteHighScoresButton = document.getElementById("delete-high-scores-button");
 
-// Agrega un evento de clic al botón para limpiar el ranking
-clearRankingButton.addEventListener('click', clearRanking);
+// Agregar una escucha del evento clic al botón para eliminar (limpiar) la tabla de máximos puntajes
+deleteHighScoresButton.addEventListener("click", deleteHighScores);
 
-// Función para limpiar (eliminar) el ranking en localStorage
-function clearRanking() {
-    // Pregunta al usuario si realmente desea borrar el historial
-    const confirmClear = confirm('Are you sure you want to clear the ranking? This action cannot be undone.');
+// Función para eliminar (limpiar) la tabla de máximos puntajes en localStorage
+function deleteHighScores() {
+    // Preguntar al usuario si realmente desea eliminar el historial
+    const confirmClear = confirm("Are you sure you want to clear the table with high scores? This action cannot be undone.");
 
     if (confirmClear) {
-        // Limpia el historial almacenado en localStorage
-        localStorage.removeItem('gameHistory');
+        // Eliminar el historial almacenado en localStorage
+        localStorage.removeItem("gameHistory");
 
-        // Actualiza la visualización del ranking
-        updateRanking();
+        // Actualizar la visualización de la tabla de máximos puntajes
+        updateHighScores();
     }
 }
-
-/* end RANKING */

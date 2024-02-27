@@ -11,12 +11,12 @@
 </head>
 <body>
     <div id="bar">
-        <a id="contacto" href="./subscription.html" title="User">
+        <a id="user-icon-container" href="./subscription.html" title="User">
             <img id="user-icon" src="./img/user.svg" alt="user-icon"/>
         </a>
         <div id="central-bar">
-            <button id="results-button" onclick="toggleRanking()">High Scores</button>
-            <span id="name-input-container">
+            <button id="high-scores-button" onclick="handleHighScores()">High Scores</button>
+            <span id="player-name-container">
                 <label for="player-name">Player Name</label>
                 <input type="text" id="player-name" placeholder="" disabled/>
             </span>
@@ -37,15 +37,15 @@
             <img id="github-icon" src="./img/github-icon.svg" alt="github-icon"/>
         </a>
     </div>
-    <div id="results-container">
-        <div id="hidden-results-content">
+    <div id="high-scores-container">
+        <div id="hidden-high-scores-container">
             <div id="high-scores-title">
                 <h2>High Scores</h2>
-                <button id="clear-ranking-button" title="Delete">
+                <button id="delete-high-scores-button" title="Delete">
                     <img id="delete-icon" src="./img/delete.svg" alt="delete-icon"/>
                 </button>
             </div>
-            <table id="modal-rankings">
+            <table id="high-scores-table">
                 <thead>
                     <tr>
                         <th>Player</th>
@@ -59,37 +59,34 @@
             </table>
         </div>
     </div>
-    <div id="board-container">
-        <div id="board">
+    <div id="main-container">
+        <div id="board-container">
             <div id="center-circle">
-                <div id="button-container">
-                    <button id="power-on-button">
+                <div id="board-buttons-container">
+                    <button id="turn-on-button" title="Turn-on">
                         <img id="power-red-icon" src="./img/power-red-icon.svg" alt="power-red-icon"/>
                     </button>
-                    <button id="power-off-button">
+                    <button id="turn-off-button" title="Turn-off">
                         <img id="power-green-icon" src="./img/power-green-icon.svg" alt="power-green-icon"/>
                     </button>
-                    <button id="play-pause-button">
+                    <button id="play-restart-button">
                         <img id="play-icon" src="./img/play-icon.svg" alt="play-icon"/>
-                        <img id="pause-icon" src="./img/pause-icon.svg" alt="pause-icon"/>
                         <img id="restart-icon" src="./img/restart-icon.svg" alt="restart-icon"/>
                     </button>
                 </div>
                 <img id="logo" src="./img/simon-logo.svg" alt="logo"/>
-                <div id="semicirculo"></div>
+                <div id="semicircle"></div>
             </div>
-            <button class="button" id="green-button" onclick="handleButtonClick(0)"></button>
-            <button class="button" id="red-button" onclick="handleButtonClick(1)"></button>
-            <button class="button" id="blue-button" onclick="handleButtonClick(2)"></button>
-            <button class="button" id="yellow-button" onclick="handleButtonClick(3)"></button>
+            <button class="light-button" id="green-button" onclick="handleLightButtonClick(0)"></button>
+            <button class="light-button" id="red-button" onclick="handleLightButtonClick(1)"></button>
+            <button class="light-button" id="blue-button" onclick="handleLightButtonClick(2)"></button>
+            <button class="light-button" id="yellow-button" onclick="handleLightButtonClick(3)"></button>
         </div>
-        <div id="game-over" class="modal">
-            <div class="modal-content">
-                <h1>GAME OVER</h1>
-                <div id="buttons-container">
-                    <button class="modal-button" onclick="restartGame()">Restart</button>
-                    <button class="modal-button" onclick="exitGame()">Exit</button>
-                </div>
+        <div id="game-over-container">
+            <h1>GAME OVER</h1>
+            <div id="game-over-buttons-container">
+                <button class="game-over-button" title="Restart" onclick="restartGame()">Restart</button>
+                <button class="game-over-button" title="Exit" onclick="exitGame()">Exit</button>
             </div>
         </div>
     </div>
