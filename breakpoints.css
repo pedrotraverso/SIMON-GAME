@@ -14,10 +14,11 @@
 /* 
     device = mobiles
     screen = B/w 320px x 768px
-    iPhone 11 Pro Max = width: 1242px x height: 2688px
+    iPhone 11 Pro Max = width: 1242px x height: 2688px at 458ppi
 */
 /* @media only screen and (max-width: 639px) { */
-@media only screen and (max-width: 1242px) {
+/* @media only screen and (max-width: 1242px) { */
+@media only screen and (width: 414px) and (height: 896px) and (-webkit-device-pixel-ratio: 3) {
     body {
         display: grid;
         grid-template-rows: 150px 1fr;
@@ -55,8 +56,8 @@
         font-size: 14px;
         color: #c0c0c0;
         letter-spacing: 0.5px;
-        /* max-width: 100%; */
-        /* margin: 0 auto; */
+        max-width: 100%;
+        margin: 0 auto;
     }
 
     #main-container {
@@ -68,8 +69,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        /* max-width: 100%; */
-        /* margin: 0 auto; */
+        max-width: 100%;
+        margin: 0 auto;
     }
 
     #user-icon-container {
