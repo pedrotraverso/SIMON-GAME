@@ -524,6 +524,7 @@ function handleHighScores() {
             // Mostrar la ventana con la tabla de máximos puntajes y ajustar estilos
             highScoresContainer.style.display = "inline-flex";
             mainContainer.style.display = "none";
+            highScoresContainer.style.width = "100%";
             highScoresContainer.style.gridRowStart = 2;
             highScoresContainer.style.gridRowEnd = 3;
             highScoresContainer.style.gridColumnStart = 1;
@@ -532,6 +533,7 @@ function handleHighScores() {
             // Ocultar la ventana con la tabla de máximos puntajes y ajustar estilos
             highScoresContainer.style.display = "none";
             mainContainer.style.display = "inline-flex";
+            mainContainer.style.width = "100%";
             mainContainer.style.gridRowStart = 2;
             mainContainer.style.gridRowEnd = 3;
             mainContainer.style.gridColumnStart = 1;
@@ -543,6 +545,8 @@ function handleHighScores() {
             // Mostrar la ventana con la tabla de máximos puntajes y ajustar estilos
             highScoresContainer.style.display = "inline-flex";
             mainContainer.style.display = "inline-flex";
+            highScoresContainer.style.width = "100%";
+            mainContainer.style.width = "100%";
             highScoresContainer.style.gridRowStart = 2;
             highScoresContainer.style.gridRowEnd = 3;
             highScoresContainer.style.gridColumnStart = 1;

@@ -24,8 +24,10 @@
         grid-template-rows: 150px 1fr;
         grid-template-columns: 1fr;
         height: 100vh;
-        margin: 0;
+        /* margin: 0; */
         background-color: #000000;
+        max-width: 100%;
+        margin: 0 auto;
     }
 
     #bar {
@@ -56,8 +58,6 @@
         font-size: 14px;
         color: #c0c0c0;
         letter-spacing: 0.5px;
-        max-width: 100%;
-        margin: 0 auto;
     }
 
     #main-container {
@@ -69,8 +69,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        max-width: 100%;
-        margin: 0 auto;
     }
 
     #user-icon-container {
