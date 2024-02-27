@@ -516,7 +516,7 @@ function handleHighScores() {
     // Obtener el tamaño de la ventana
     const windowWidth = window.innerWidth;
 
-    if (windowWidth <= 639) {
+    if (windowWidth <= 1242) {
         // Para pantalla de dispositivo móvil, verificar si la ventana con la tabla de máximos puntajes está visible u oculta
         if (highScoresContainer.style.display === "none" || highScoresContainer.style.display === "") {
             // Mostrar la ventana con la tabla de máximos puntajes y ajustar estilos

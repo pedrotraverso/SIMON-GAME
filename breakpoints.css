@@ -1,7 +1,7 @@
 /* 
     device = laptops, desktops
     screen = B/w 1025px x 1280px
-    MacBook Pro (Retina, Mid 2012) = width: 2880px x height:1800px
+    MacBook Pro (Retina, Mid 2012) = width: 2880px x height: 1800px
 */
 @media only screen and (min-width: 1024px) {}
 
@@ -14,9 +14,10 @@
 /* 
     device = mobiles
     screen = B/w 320px x 768px
-    iPhone 11 Pro Max = width: 1242px x height:2688px
+    iPhone 11 Pro Max = width: 1242px x height: 2688px
 */
-@media only screen and (max-width: 639px) {
+/* @media only screen and (max-width: 639px) { */
+@media only screen and (max-width: 1242px) {
     body {
         display: grid;
         grid-template-rows: 150px 1fr;
@@ -54,6 +55,8 @@
         font-size: 14px;
         color: #c0c0c0;
         letter-spacing: 0.5px;
+        /* max-width: 100%; */
+        /* margin: 0 auto; */
     }
 
     #main-container {
@@ -65,6 +68,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        /* max-width: 100%; */
+        /* margin: 0 auto; */
     }
 
     #user-icon-container {
