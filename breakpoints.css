@@ -19,7 +19,7 @@
 /* @media only screen and (max-width: 639px) { */
 /* @media only screen and (max-width: 1242px) { */
 /* @media only screen and (width: 414px) and (height: 896px) and (-webkit-device-pixel-ratio: 3) { */
-@media only screen and (min-width: 414px) and (orientation: landscape) {
+@media only screen and (max-width: 414px) and (orientation: landscape) {
     body {
         display: grid;
         grid-template-rows: 150px 1fr;
