@@ -514,11 +514,9 @@ function handleHighScores() {
     const mainContainer = document.getElementById("main-container");
 
     // Obtener el tamaño de la ventana
-    const windowWidth = window.innerWidth;
-    // const isiPhone11ProMax = window.innerWidth === 414 && window.innerHeight === 896 && window.devicePixelRatio === 3;
+    const isiPhone11ProMax = window.innerWidth === 414 && window.innerHeight === 896 && window.devicePixelRatio === 3;
 
-    if (windowWidth <= 414) {
-    // if (isiPhone11ProMax) {
+    if (isiPhone11ProMax) {
         // Para pantalla de dispositivo móvil, verificar si la ventana con la tabla de máximos puntajes está visible u oculta
         if (highScoresContainer.style.display === "none" || highScoresContainer.style.display === "") {
             // Mostrar la ventana con la tabla de máximos puntajes y ajustar estilos
