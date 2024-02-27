@@ -514,7 +514,7 @@ function handleHighScores() {
     const mainContainer = document.getElementById("main-container");
 
     // Obtener el tamaño de la ventana
-    // const windowWidth = window.innerWidth;
+    const windowWidth = window.innerWidth;
     // const isiPhone11ProMax = window.innerWidth === 414 && window.innerHeight === 896 && window.devicePixelRatio === 3;
 
     if (windowWidth <= 414) {
