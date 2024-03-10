@@ -1,0 +1,80 @@
+/* 
+    device = laptops, desktops
+    screen = B/w 1025px x 1280px
+    MacBook Pro (Retina, Mid 2012) = width: 2880px x height: 1800px
+*/
+@media only screen and (min-width: 1024px) {}
+
+/* 
+    device = tablets
+    screen = B/w 768px x 1024px
+*/
+@media only screen and (min-width: 640px) and (max-width: 1023px) {}
+
+/* 
+    device = mobiles
+    screen = B/w 320px x 768px
+    iPhone 11 Pro Max = width: 1242px x height: 2688px at 458ppi
+    @media only screen and (max-width: 639px) {}
+    @media only screen and (width: 414px) and (height: 896px) and (-webkit-device-pixel-ratio: 3) {}
+*/
+@media only screen and (max-width: 430px) {
+    body {
+        display: grid;
+        grid-template-rows: 50px 1fr;
+        grid-template-columns: 1fr;
+        height: 100vh;
+        margin: 0;
+        background-color: #000000;
+    }
+    
+    #bar {
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        display: grid;
+        grid-template-rows: 50px;
+        grid-template-columns: repeat(4, 1fr);
+        background-color: #000000;
+        border-bottom: 1px solid #2f2f2f;
+    }
+    
+    #home-icon-container {
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        display: flex;
+        justify-self: center;
+        align-self: center;
+        justify-content: center;
+        align-items: flex-end;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #c0c0c0;
+    }
+
+    #github-icon-container {
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 4;
+        grid-column-end: 5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #main-form {
+        grid-row-start: 2;
+        grid-row-end: 3;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-width: 300px;
+    }
+}

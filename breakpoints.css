@@ -16,8 +16,9 @@
     screen = B/w 320px x 768px
     iPhone 11 Pro Max = width: 1242px x height: 2688px at 458ppi
     @media only screen and (max-width: 639px) {}
+    @media only screen and (width: 414px) and (height: 896px) and (-webkit-device-pixel-ratio: 3) {}
 */
-@media only screen and (width: 414px) and (height: 896px) and (-webkit-device-pixel-ratio: 3) {
+@media only screen and (max-width: 430px) {
     body {
         display: grid;
         grid-template-rows: 150px 1fr;
@@ -74,13 +75,10 @@
         grid-column-start: 1;
         grid-column-end: 2;
         display: flex;
-        /* justify-self: flex-start; */
         justify-self: center;
         align-self: center;
         justify-content: center;
         align-items: flex-end;
-        /* margin-left: 30px; */
-        /* margin: 20px; */
         width: 20px;
         height: 20px;
         border-radius: 50%;
@@ -93,10 +91,8 @@
         grid-column-start: 4;
         grid-column-end: 5;
         display: flex;
-        /* justify-content: flex-end; */
         justify-content: center;
         align-items: center;
-        /* margin-right: 30px; */
     }
 
     #player-name-container {
@@ -104,8 +100,6 @@
         grid-row-end: 4;
         grid-column-start: 1;
         grid-column-end: 5;
-        /* width: 340px; */
-        /* flex-direction: column; */
     }
 
     #level {
@@ -113,7 +107,6 @@
         grid-row-end: 3;
         grid-column-start: 1;
         grid-column-end: 2;
-        /* width: 50px; */
         flex-direction: column;
     }
 
@@ -122,7 +115,6 @@
         grid-row-end: 3;
         grid-column-start: 2;
         grid-column-end: 3;
-        /* width: 100px; */
         flex-direction: column;
     }
 
@@ -131,7 +123,6 @@
         grid-row-end: 3;
         grid-column-start: 3;
         grid-column-end: 4;
-        /* width: 140px; */
         flex-direction: column;
     }
 
@@ -140,7 +131,6 @@
         grid-row-end: 3;
         grid-column-start: 4;
         grid-column-end: 5;
-        /* width: 50px; */
         flex-direction: column;
     }
 
@@ -165,6 +155,5 @@
         align-items: center;
         border: 1px solid #2f2f2f;
         color: #c0c0c0;
-        /* margin: 20px; */
     }
 }

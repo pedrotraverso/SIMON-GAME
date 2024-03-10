@@ -22,6 +22,23 @@ const yellowButton = document.getElementById("yellow-button");
 
 const modal = document.getElementById("game-over-container");
 
+// Ocultar la ventana con la tabla de máximos puntajes y ajustar estilos
+const highScoresContainer = document.getElementById("high-scores-container");
+const mainContainer = document.getElementById("main-container");
+highScoresContainer.style.display = "none";
+mainContainer.style.display = "inline-flex";
+mainContainer.style.gridRowStart = 2;
+mainContainer.style.gridRowEnd = 3;
+mainContainer.style.gridColumnStart = 1;
+mainContainer.style.gridColumnEnd = 3;
+
+// Deshabilitar el botón para mostrar/ocultar la ventana con la tabla de máximos puntajes
+const highScoresButton = document.getElementById("high-scores-button");
+highScoresButton.disabled = true;
+
+// Agregar la clase "high-scores-button-disabled" al botón desactivado
+highScoresButton.classList.add("high-scores-button-disabled");
+
 // Array que contiene los identificadores de los botones de colores
 const colorButtons = ["green-button", "red-button", "blue-button", "yellow-button"];
 
@@ -39,6 +56,12 @@ let lightScore = 0;
 
 // Variable para almacenar el puntaje de la secuencia
 let sequenceScore = 0;
+
+let isGameOverActive = false;
+
+// Borrar en localStorage el orden y la dirección de la columna
+localStorage.removeItem("currentSortColumn");
+localStorage.removeItem("isAscendingOrder");
 
 // Establecer el estilo inicial del filtro del logo para que tenga opacidad
 logo.style.filter = "opacity(60%)";
@@ -70,6 +93,26 @@ turnOnButton.addEventListener("click", powerGame);
 
 // Función para encender el juego
 function powerGame() {
+    // Obtener el historial de juegos almacenados en localStorage
+    let gameHistory = JSON.parse(localStorage.getItem("gameHistory")) || [];
+
+    // Verificar si hay resultados guardados en el historial
+    if (gameHistory.length > 0) {
+        // Actualizar la tabla con los resultados almacenados en localStorage
+        updateHighScores();
+    }
+
+    // Mostrar la ventana de high scores y habilitar el botón
+    // const highScoresContainer = document.getElementById("high-scores-container");
+    // highScoresContainer.style.display = "inline-flex";
+
+    // Habilitar el botón para mostrar/ocultar la ventana con la tabla de máximos puntajes
+    const highScoresButton = document.getElementById("high-scores-button");
+    highScoresButton.disabled = false;
+
+    // Eliminar la clase "high-scores-button-disabled" del botón habilitado
+    highScoresButton.classList.remove("high-scores-button-disabled");
+
     // Habilitar la opción de ingresar el nombre del jugador
     playerNameInput.disabled = false;
 
@@ -113,7 +156,13 @@ function powerGame() {
     playRestartButton.title = "Play";
 
     // Eliminar la escucha del evento clic del botón anterior para evitar duplicados
+    // turnOnButton.removeEventListener("click", powerGame);
+
+    // Eliminar las escuchas de los eventos clic de los botones anteriores para evitar duplicados
     turnOnButton.removeEventListener("click", powerGame);
+    turnOffButton.removeEventListener("click", exitGame);
+    playRestartButton.removeEventListener("click", startGame);
+    playRestartButton.removeEventListener("click", restartGame);
 
     // Agregar las escuchas de los eventos clic a los botones
     turnOffButton.addEventListener("click", exitGame);
@@ -122,13 +171,19 @@ function powerGame() {
 
 // Función para salir del juego
 function exitGame() {
-    // Cerrar la ventana de fin de juego
-    modal.style.display = "none";
-
-    if (isGameActive) {
+    if (isGameOverActive) {
+        // Cerrar la ventana de fin de juego
+        modal.style.display = "none";
+    } else if (isGameActive) {
         // Guardar los resultados de la partida actual si el juego está activo
         saveGameResults();
 
+        // Restablecer el estado de ordenamiento de la tabla de máximos puntajes
+        // resetSortingState();
+
+        // Actualizar la tabla con los resultados actuales si el juego está activo
+        updateHighScores();
+    } else {
         // Actualizar la tabla con los resultados actuales si el juego está activo
         updateHighScores();
     }
@@ -162,7 +217,24 @@ function exitGame() {
     playerNameInput.disabled = true;
 
     // Deshabilitar los botones de colores
-    disableLightButtons();;
+    disableLightButtons();
+
+    // Ocultar la ventana con la tabla de máximos puntajes y ajustar estilos
+    const highScoresContainer = document.getElementById("high-scores-container");
+    const mainContainer = document.getElementById("main-container");
+    highScoresContainer.style.display = "none";
+    mainContainer.style.display = "inline-flex";
+    mainContainer.style.gridRowStart = 2;
+    mainContainer.style.gridRowEnd = 3;
+    mainContainer.style.gridColumnStart = 1;
+    mainContainer.style.gridColumnEnd = 3;
+
+    // Deshabilitar el botón para mostrar/ocultar la ventana con la tabla de máximos puntajes
+    const highScoresButton = document.getElementById("high-scores-button");
+    highScoresButton.disabled = true;
+
+    // Agregar la clase "high-scores-button-disabled" al botón desactivado
+    highScoresButton.classList.add("high-scores-button-disabled");
 
     // Eliminar la escucha del evento clic del botón anterior para evitar duplicados
     turnOffButton.removeEventListener("click", exitGame);
@@ -196,6 +268,8 @@ function startGame() {
 
     isGameActive = true;
 
+    isGameOverActive = false;
+
     // Deshabilitar la opción de ingresar el nombre del jugador
     playerNameInput.disabled = true;
 
@@ -221,10 +295,10 @@ function startGame() {
 
 // Función para iniciar una nueva partida
 function restartGame() {
-    // Cerrar la ventana de fin de juego
-    modal.style.display = "none";
-
-    if (isGameActive) {
+    if (isGameOverActive) {
+        // Cerrar la ventana de fin de juego
+        modal.style.display = "none";
+    } else if (isGameActive) {
         // Guardar los resultados de la partida actual si el juego está activo
         saveGameResults();
 
@@ -470,6 +544,8 @@ function gameOver() {
     // Detener el juego
     stopGame();
 
+    isGameOverActive = true;
+
     // Detener el temporizador
     stopTimer();
 
@@ -514,15 +590,16 @@ function handleHighScores() {
     const mainContainer = document.getElementById("main-container");
 
     // Obtener el tamaño de la ventana
-    const isiPhone11ProMax = window.innerWidth === 414 && window.innerHeight === 896 && window.devicePixelRatio === 3;
+    const windowWidth = window.innerWidth;
+    // const isiPhone11ProMax = window.innerWidth === 414 && window.innerHeight === 896 && window.devicePixelRatio === 3;
 
-    if (isiPhone11ProMax) {
+    if (windowWidth <= 414) {
+        // if (isiPhone11ProMax) {
         // Para pantalla de dispositivo móvil, verificar si la ventana con la tabla de máximos puntajes está visible u oculta
         if (highScoresContainer.style.display === "none" || highScoresContainer.style.display === "") {
             // Mostrar la ventana con la tabla de máximos puntajes y ajustar estilos
             highScoresContainer.style.display = "inline-flex";
             mainContainer.style.display = "none";
-            highScoresContainer.style.width = "100%";
             highScoresContainer.style.gridRowStart = 2;
             highScoresContainer.style.gridRowEnd = 3;
             highScoresContainer.style.gridColumnStart = 1;
@@ -531,7 +608,6 @@ function handleHighScores() {
             // Ocultar la ventana con la tabla de máximos puntajes y ajustar estilos
             highScoresContainer.style.display = "none";
             mainContainer.style.display = "inline-flex";
-            mainContainer.style.width = "100%";
             mainContainer.style.gridRowStart = 2;
             mainContainer.style.gridRowEnd = 3;
             mainContainer.style.gridColumnStart = 1;
@@ -543,8 +619,6 @@ function handleHighScores() {
             // Mostrar la ventana con la tabla de máximos puntajes y ajustar estilos
             highScoresContainer.style.display = "inline-flex";
             mainContainer.style.display = "inline-flex";
-            highScoresContainer.style.width = "100%";
-            mainContainer.style.width = "100%";
             highScoresContainer.style.gridRowStart = 2;
             highScoresContainer.style.gridRowEnd = 3;
             highScoresContainer.style.gridColumnStart = 1;
@@ -617,24 +691,105 @@ function updateHighScores() {
         timeCell.textContent = formattedTime;
     });
 
-    // Ordenar las filas de la tabla por el puntaje de luces
-    sortTableByLightScore();
+    // Llamar a la función para agregar escuchas de eventos clic a los títulos de las columnas
+    addHeaderCellClickListeners();
+
+    // Ordenar la tabla según la columna y dirección de orden guardadas en localStorage
+    sortTable(currentSortColumn);
 }
 
-// Función para ordenar la tabla por el puntaje de luces
-function sortTableByLightScore() {
+// Función para reiniciar el estado al salir del juego
+function resetSortingState() {
+    // Borrar en localStorage el orden y la dirección de la columna
+    localStorage.removeItem("currentSortColumn");
+    localStorage.removeItem("isAscendingOrder");
+
+    // Restablecer las variables locales
+    currentSortColumn = 2; // Establecer a la columna de puntaje de luces por defecto
+    isAscendingOrder = true; // Establecer a orden ascendente por defecto
+
+    // Actualizar la tabla con los resultados guardados del juego
+    updateHighScores();
+}
+
+// Función para obtener el valor correspondiente a la columna para fines de comparación
+function getSortableValue(row, columnIndex) {
+    const cellValue = row.cells[columnIndex].textContent;
+
+    // Convertir valores según la columna
+    switch (columnIndex) {
+        case 0: // Columna del nombre del jugador
+            return cellValue.toLowerCase();
+        case 1: // Columna del nivel
+            return parseInt(cellValue);
+        case 2: // Columna del puntaje de luces
+            return parseInt(cellValue);
+        case 3: // Columna de la fecha
+            // Parsear la fecha (dividirla en un array de subcadenas) utilizando el caracter "/" como separador
+            const dateParts = cellValue.split("/");
+            // Parsear la hora (dividirla en un array de subcadenas) utilizando el caracter ":" como separador
+            const timeParts = row.cells[4].textContent.split(":");
+
+            // Combinar la fecha y la hora en un objeto Date
+            const combinedDateTime = new Date(
+                // Cambiar el formato de la fecha de "DD/MM/YYYY" a "YYYY-MM-DD" (ISO 8601)
+                dateParts[2], // Año
+                dateParts[1], // Mes
+                dateParts[0], // Día
+                // No es necesario realizar ninguna conversión especial para la hora en el formato "hh:mm:ss"
+                parseInt(timeParts[0]), // Horas
+                parseInt(timeParts[1]), // Minutos
+                parseInt(timeParts[2]) // Segundos
+            );
+
+            return combinedDateTime;
+        case 4: // Columna de la hora
+            // No es necesario realizar ninguna conversión especial para la hora en el formato "hh:mm:ss"
+            return cellValue;
+        default:
+            return cellValue;
+    }
+}
+
+// Variables para rastrear el estado actual de orden y columna
+let currentSortColumn = localStorage.getItem("currentSortColumn") || 2; // Por defecto, ordenar la tabla por puntaje de luces
+let isAscendingOrder = localStorage.getItem("isAscendingOrder") === "true" || false;
+
+// Función para ordenar la tabla según la columna seleccionada
+function sortTable(columnIndex) {
     // Obtener el elemento de la tabla de máximos puntajes en el DOM por su identificador
     const highScoresTable = document.getElementById("high-scores-table");
     const tableBody = highScoresTable.getElementsByTagName("tbody")[0];
-
     // Convertir las filas de la tabla en una matriz
     const rowsArray = Array.from(tableBody.rows);
 
-    // Ordenar la matriz según el valor del puntaje de luces (tercera columna)
+    // Verificar si se está alternando la dirección de orden
+    if (currentSortColumn === columnIndex) {
+        // Cambiar la dirección de orden
+        isAscendingOrder = !isAscendingOrder;
+    } else {
+        // Si es una nueva columna, establecer la dirección de orden predeterminada
+        isAscendingOrder = true;
+        currentSortColumn = columnIndex;
+    }
+
+    // Guardar la columna de orden actual y dirección en localStorage
+    localStorage.setItem("currentSortColumn", currentSortColumn);
+    localStorage.setItem("isAscendingOrder", isAscendingOrder);
+
+    // Ordenar la matriz según la columna y dirección de orden seleccionado
     rowsArray.sort((a, b) => {
-        const lightScoreA = parseInt(a.cells[2].textContent);
-        const lightScoreB = parseInt(b.cells[2].textContent);
-        return lightScoreB - lightScoreA; // Orden descendente
+        const valueA = getSortableValue(a, columnIndex);
+        const valueB = getSortableValue(b, columnIndex);
+
+        // Comparar los valores según la dirección de orden
+        if (isAscendingOrder) {
+            // Ordenar de forma ascendente
+            return valueA > valueB ? 1 : -1;
+        } else {
+            // Ordenar de forma descendente
+            return valueB > valueA ? 1 : -1;
+        }
     });
 
     // Eliminar todas las filas de la tabla
@@ -645,6 +800,14 @@ function sortTableByLightScore() {
     // Agregar las filas ordenadas a la tabla
     rowsArray.forEach(row => {
         tableBody.appendChild(row);
+    });
+}
+
+// Función para agregar escuchas de eventos clic a las celdas de encabezado de las columnas de la tabla
+function addHeaderCellClickListeners() {
+    const columnHeaders = document.querySelectorAll("#high-scores-table th");
+    columnHeaders.forEach((th, index) => {
+        th.addEventListener("click", () => sortTable(index));
     });
 }
 
