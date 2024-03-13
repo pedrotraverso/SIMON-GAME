@@ -284,6 +284,7 @@ h2 {
     background: rgba(255, 255, 255, 0.4); /* Color del cuadro de desplazamiento (pulgar): RGBA con opacidad ajustada (0.4) */
     border-radius: 10px;
     border: 2px solid #2f2f2f; /* Mismo color de la barra de desplazamiento (pista) */
+    border-left-width: 3px;
 }
 
 /* Para navegadores basados en WebKit (Chrome, Safari) */
