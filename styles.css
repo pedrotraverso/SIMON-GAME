@@ -221,9 +221,7 @@ h2 {
     width: 100%;
     border-collapse: collapse; /* Los bordes de las celdas se colapsan en uno solo, eliminando cualquier espacio entre las celdas */
     margin-bottom: 30px;
-    border-top: 1px solid #2f2f2f;
-    border-bottom: 1px solid #2f2f2f;
-    border-left: 1px solid #2f2f2f;
+    border: 1px solid #2f2f2f;
     max-height: 80.15vh; /* Limita la altura máxima de la tabla al 80.15% del viewport height (altura visible de la ventana del navegador) */
     overflow-y: auto; /* Agrega una barra de desplazamiento vertical (y) a la tabla si el contenido es más grande que la altura máxima especificada */
     display: block; /* Se utiliza para configurar la barra de desplazamiento vertical correctamente */
