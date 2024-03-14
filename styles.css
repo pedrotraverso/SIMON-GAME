@@ -292,6 +292,11 @@ h2 {
     background: #c0c0c0; /* Color del cuadro de desplazamiento (pulgar) cuando el puntero del ratón pasa por encima */
 }
 
+/* Para navegadores basados en WebKit (Chrome, Safari) */
+#high-scores-table::-webkit-scrollbar-corner {
+    background: #2f2f2f; /* Color del vértice (intersección de las barras de desplazamiento horizontal y vertical) */
+}
+
 /* Para navegadores basados en Moz (Firefox) */
 #high-scores-table::-moz-scrollbar {
     width: 10px; /* Ancho de la barra de desplazamiento */
